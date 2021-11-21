@@ -72,4 +72,15 @@ public class Store implements IFastLane, ILane, IJustHaveALook {
     private Article getArticleById(int articleId) {
         return this.articles.stream().filter(art -> art.getArticleid() == articleId).findFirst().orElse(null);
     }
+
+    /**
+     * Adds an article to the store
+     * @param toAdd the article to add
+     * @return if the addition was a success
+     */
+    @Override
+    public boolean addArticle(Article toAdd){
+        return this.articles.add(toAdd);
+    }
+
 }
