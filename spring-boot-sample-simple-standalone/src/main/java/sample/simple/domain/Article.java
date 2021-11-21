@@ -54,14 +54,14 @@ public class Article {
         // the amount is included inside the stock;
         if(amount <= stock){
             stock -= amount;
-            Logger.getGlobal().warning(String.format("[Article] Took %d from the stock.", amount));
+            Logger.getGlobal().info(String.format("[Article] Took %d from the stock.", amount));
             return amount;
         }
         else{
             Logger.getGlobal().warning("[Article] Request overflow.");
             ret = stock;
             stock = 0;
-            Logger.getGlobal().warning(String.format("[Article] Took %d from the stock.", amount));
+            Logger.getGlobal().info(String.format("[Article] Took %d from the stock.", amount));
             return ret;
         }
     }
