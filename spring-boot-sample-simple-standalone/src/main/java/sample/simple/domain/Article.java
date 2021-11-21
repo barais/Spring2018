@@ -7,11 +7,13 @@ public class Article {
     int Articleid;
     double price;
     int stock;
+    String name;
 
-    public Article(int articleid, double price, int stock) {
+    public Article(int articleid, double price, int stock, String name) {
         Articleid = articleid;
         this.price = price;
         this.stock = stock;
+        this.name = name;
     }
 
     public int getArticleid() {
@@ -70,6 +72,7 @@ public class Article {
                 "Articleid=" + Articleid +
                 ", price=" + price +
                 ", stock=" + stock +
+                ", name=" + name +
                 '}';
     }
 }
