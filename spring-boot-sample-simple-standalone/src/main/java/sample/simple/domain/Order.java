@@ -5,12 +5,10 @@ package sample.simple.domain;
  */
 public class Order {
 
-    private int orderId;
     private int articleId;
     private int quantity;
 
-    public Order(int orderId, int articleId, int quantity) {
-        this.orderId = orderId;
+    public Order(int articleId, int quantity) {
         this.articleId = articleId;
         this.quantity = quantity;
     }
@@ -31,18 +29,9 @@ public class Order {
         this.quantity = quantity;
     }
 
-    public int getOrderId() {
-        return orderId;
-    }
-
-    public void setOrderId(int orderId) {
-        this.orderId = orderId;
-    }
-
     @Override
     public String toString() {
         return "Order{" +
-                "orderId=" + orderId +
                 "articleId=" + articleId +
                 ", quantity=" + quantity +
                 '}';

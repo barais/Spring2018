@@ -1,5 +1,7 @@
 package sample.simple.domain;
 
+import java.util.logging.Logger;
+
 public class Article {
 
     int Articleid;
@@ -34,6 +36,32 @@ public class Article {
 
     public void setStock(int stock) {
         this.stock = stock;
+    }
+
+    /**
+     * Take as much as possible from the stock
+     * @param amount the wanted amount
+     * @return the amount took from stock
+     */
+    public int takeFromStock(int amount){
+        int ret;
+        if(amount < 0){
+            Logger.getGlobal().warning("[Article] Can't take negative amount.");
+            return 0;
+        }
+        // the amount is included inside the stock;
+        if(amount <= stock){
+            stock -= amount;
+            Logger.getGlobal().warning(String.format("[Article] Took %d from the stock.", amount));
+            return amount;
+        }
+        else{
+            Logger.getGlobal().warning("[Article] Request overflow.");
+            ret = stock;
+            stock = 0;
+            Logger.getGlobal().warning(String.format("[Article] Took %d from the stock.", amount));
+            return ret;
+        }
     }
 
     @Override
