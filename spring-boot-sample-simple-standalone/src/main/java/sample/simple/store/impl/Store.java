@@ -19,6 +19,8 @@ import java.util.logging.Logger;
 @Component
 public class Store implements IFastLane, ILane, IJustHaveALook {
 
+    private final int storeBankAccountId = 123456789;
+
     @Autowired
     private IBank bank;
 
@@ -43,7 +45,7 @@ public class Store implements IFastLane, ILane, IJustHaveALook {
 
     @Override
     public boolean isAvailable(int articleId) {
-        return getArticleById(articleId).getStock() > 0;
+        return provider.getArticleById(articleId).getStock() > 0;
     }
 
     @Override
@@ -60,17 +62,14 @@ public class Store implements IFastLane, ILane, IJustHaveALook {
     public void pay(int cartId, int accountId) {
         if(carts.containsKey(cartId)){
             Order order = carts.get(cartId);
-            getArticleById(order.getArticleId()).takeFromStock(order.getQuantity());
-            Logger.getGlobal().info(String.format("[Store] Payed the cart %d, on account %d", cartId, accountId));
+            Article article = provider.getArticleById(order.getArticleId());
+            article.takeFromStock(order.getQuantity());
+            bank.transfert((article.getPrice() * order.getQuantity()), accountId, storeBankAccountId);
             carts.remove(cartId);
         }
         else{
             Logger.getGlobal().info(String.format("[Store] Couldn't find cart with id %d", cartId));
         }
-    }
-
-    private Article getArticleById(int articleId) {
-        return this.articles.stream().filter(art -> art.getArticleid() == articleId).findFirst().orElse(null);
     }
 
     /**

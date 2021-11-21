@@ -1,5 +1,7 @@
 package sample.simple.provider;
 
+import sample.simple.domain.Article;
+
 public interface IProvider {
     /**
      * Getter for the article price
@@ -14,4 +16,18 @@ public interface IProvider {
      * @param quantity the quantity in which we want to order the article
      */
     void order(int articleId, int quantity);
+
+    /**
+     * Adds an article to the store
+     * @param toAdd the article to add
+     * @return if the addition was a success
+     */
+    boolean addArticle(Article toAdd);
+
+    /**
+     * return an article from the id
+     * @param articleId the id
+     * @return the article
+     */
+    Article getArticleById(int articleId);
 }
