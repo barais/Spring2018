@@ -68,7 +68,7 @@ public class Store implements IFastLane, ILane, IJustHaveALook {
             carts.remove(cartId);
         }
         else{
-            Logger.getGlobal().info(String.format("[Store] Couldn't find cart with id %d", cartId));
+            Logger.getGlobal().warning(String.format("[Store] Couldn't find cart with id %d", cartId));
         }
     }
 
