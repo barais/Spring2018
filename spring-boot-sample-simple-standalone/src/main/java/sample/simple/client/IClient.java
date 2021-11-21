@@ -1,4 +1,4 @@
 package sample.simple.client;
 
-public interface IClient {
+public interface IClient extends IRun{
 }
