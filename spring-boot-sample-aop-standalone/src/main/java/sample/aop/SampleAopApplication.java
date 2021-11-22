@@ -17,6 +17,7 @@
 package sample.aop;
 
 import sample.aop.client.IClient;
+import sample.aop.security.SecurityManager;
 import sample.aop.service.HelloWorldService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +43,8 @@ public class SampleAopApplication implements CommandLineRunner {
 	}
 
 	public static void main(String[] args) throws Exception {
+		//Connection
+		SecurityManager.login("root", "");
 		SpringApplication.run(SampleAopApplication.class, args);
 	}
 

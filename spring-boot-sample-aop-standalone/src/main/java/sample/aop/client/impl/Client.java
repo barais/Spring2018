@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 import sample.aop.client.IClient;
 import sample.aop.domain.Article;
 import sample.aop.provider.IProvider;
+import sample.aop.security.SecurityManager;
 import sample.aop.store.impl.Store;
 
 @Component
@@ -60,6 +61,15 @@ public class Client implements IClient {
 
         // show desktop info
         System.out.println(desktop);
+
+        // Let's trigger an error as non logged user
+        SecurityManager.logout();
+        try{
+            store.oneShotOrder(3, 2, 123);
+        }
+        catch (SecurityException e){
+            System.out.println("Succes with the security manager!");
+        }
 
     }
 }
