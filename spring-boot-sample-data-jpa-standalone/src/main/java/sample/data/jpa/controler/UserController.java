@@ -20,16 +20,18 @@ public class UserController {
 
     /**
      * Endpoint to test the controller with a postman
+     *
      * @return A {@link ResponseEntity} with status code 200 and a {@link String}
      */
     @GetMapping("/test")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<String> test(){
+    public ResponseEntity<String> test() {
         return ResponseEntity.ok("User controller is OK!");
     }
 
     /**
      * Return if any user with given id
+     *
      * @param id user id
      * @return {@link ResponseEntity} with status code 200 and the wanted user in body
      * @throws UserException
@@ -42,6 +44,7 @@ public class UserController {
 
     /**
      * Creates and returns a user
+     *
      * @param user {@link User} User data sent in request body
      * @return the created {@link User}
      * @throws UserException
@@ -49,19 +52,18 @@ public class UserController {
     @PostMapping("/create")
     public ResponseEntity<User> createUser(@RequestBody User user) throws UserException {
         // The couple first and last name shall be unique
-        if(!userDao.findUserByFirstNameAndLastName(user.getFirstName(), user.getLastName()).isPresent()){
+        if (!userDao.findUserByFirstNameAndLastName(user.getFirstName(), user.getLastName()).isPresent()) {
             // we save the user
             userDao.save(user);
             // we find the newly created user (to get the generated id)
             Optional<User> userRes = userDao.findUserByFirstNameAndLastName(user.getFirstName(), user.getLastName());
-            if(userRes.isPresent())
+            if (userRes.isPresent())
                 // we found the user, everything is OK
                 return ResponseEntity.ok(userRes.get());
             else
                 // no user found, something went wrong
                 throw new UserException(String.format("An unexpected error appended while creating user: %s", user));
-        }
-        else{
+        } else {
             // the couple first/last name is already used
             // we send a code HTTP 422 UnprocessableEntity
             return ResponseEntity.unprocessableEntity().build();
