@@ -15,4 +15,3 @@ WORKDIR /opt/app
 COPY --from=compilation /usr/src/app/target/${JAR_FILE} /opt/app
 
 ENTRYPOINT ["java", "-jar", "spring-boot-sample-data-jpa-2.3.3.RELEASE-spring-boot.jar"]
-
